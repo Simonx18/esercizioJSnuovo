@@ -36,37 +36,67 @@ const marco = {
   
   const prices = [34, 5, 2]
   const shippingCost = 50
-  let utenteCheEffettuaLAcquisto = amy //cambia il valore qui per provare se il tuo algoritmo funziona!
+  
 
 
 
-  let totaleCarrello = 0
-  for (let i = 0; i < prices.length; i++) {
-    let prezzo = prices[i];
-    totaleCarrello += prezzo
-  }
-  if (utenteCheEffettuaLAcquisto.isAmbassador) {
-    totaleCarrello = (totaleCarrello * 30 ) / 100
-  }
-  if (totaleCarrello <= 100) {
-    totaleCarrello += shippingCost;
-}
-const tuttiUtenti = [];
-tuttiUtenti.push(marco, paul, amy);
-for (let i = 0; i < tuttiUtenti.length; i++) {
-    const utente = tuttiUtenti[i];
-    let stringaBase = `${utente.name} ${utente.lastName} `;
-    if (!utente.isAmbassador) {
-        stringaBase += "NON ";
+  // Array di utenti
+var users = [paul, marco, amy];
+
+// Aggiungi utenti all'array
+users .push({ userName: "Paul", isAmbassador: true });
+users .push({ userName: "Marco", isAmbassador: false });
+users .push({ userName: "Amy", isAmbassador: true });
+
+
+// creerei una funzione che calcola il costo totale
+// legenda: listPrice sarà il costo del carrello, user sarà l'utente, shippingCosts sarà il costo di spedizione
+
+function calculateCart(listPrice, user, shippingCosts) {
+    // qui farei un if per controllare se l'utente è ambassador
+    // e se è ambassador applico lo sconto, quindi farò listPrice = listPrice * 0.7 (così si calcola lo sconto)
+    if (user.isAmbassador) {
+      listPrice = listPrice * 0.7;
     }
-    stringaBase += "è un ambassador";
-    console.log(stringaBase);
-}
-let soloAmbassador = [];
-for (let i = 0; i < tuttiUtenti.length; i++) {
-    const utente = tuttiUtenti[i];
-    if (utente.isAmbassador) {
-        soloAmbassador.push(utente);
+    
+    // farei un altro if per controllare se il prezzo del carrello supera i 100
+    // e se lo supera imposto shippingCosts = 0 (così azzero la spedizione)
+    if (listPrice > 100) {
+      shippingCosts = 0
     }
+
+
+    // infine calcolo il costo del carrello
+    // banalmente un 
+  return listPrice + shippingCosts;
+};
+
+
+// qui il tuo ciclo for per stampare chi è ambassador
+// fai il ciclo for sull'array utenti che hai in alto, non serve altro.
+for (let i = 0; i < users.length; i++) {
+  const utente = users[i];
+  if (utente.isAmbassador) {
+    console.log(`${utente.name} ${utente.lastName} è un utente Ambassador!`);
+  } else {
+    console.log(`${utente.name} ${utente.lastName} non è un utente Ambassador.`);
+  }
+  
 }
-console.log(soloAmbassador);
+
+// mi creerei le tre variabili che mi servono per calcolare il carrello
+const listPrice = 150
+const actualUser = paul // cambia indice per cambiare utente
+const shippingCosts = 10 // costo di spedizione
+
+const total = calculateCart(listPrice, actualUser, shippingCosts); // chiamo la funzione
+console.log(total); // stampo il totale
+
+
+
+// è giusto così? non sono tanto sicuro del risutato...
+// impostato così come mi ha fatto vedere è già più semplice da comprendere rispetto alla soluzione che ho visto
+
+// P.S.
+// mi scuso per aver "preso spunto" dalla soluzione... questo compito mi è venuto davvero difficile e sono andato nel panico.
+// grazie per avermi dato dei consigli utili
